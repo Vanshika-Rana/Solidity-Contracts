@@ -12,9 +12,13 @@ contract Todo{
     function delTodo(uint idx) public{
         require(idx < todos[msg.sender].length);
         delete todos[msg.sender][idx];
+        todos[msg.sender][idx] = todos[msg.sender][todos[msg.sender].length - 1];
+        delete todos[msg.sender][todos[msg.sender].length - 1];
+        todos[msg.sender].pop();
+        
     }
     // getting todos
-    function getTodo() public view returns(string[] memory){
-        return(todos[msg.sender]);
+    function getTodo() public view returns(string[] memory, uint){
+        return(todos[msg.sender], todos[msg.sender].length);
     }
 }
